@@ -6,27 +6,27 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GuildedRose.API.Inventory.Models;
-using GuildedRose.API.Inventory.Services;
+using GuildedRose.API.Inventory.Interfaces;
 
 namespace GuildedRose.API.Inventory.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Inventory : ControllerBase
+    public class InventoryController : ControllerBase
     {
-        private readonly InventoryService _context;
+        private readonly IInventoryRepository _context;
 
-        public Inventory(InventoryService context)
+        public InventoryController(IInventoryRepository context)
         {
             _context = context;
         }
 
         //// GET: api/Inventory
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<InventoryItem>>> GetItems()
-        //{
-        //    return await _context.Items.ToListAsync();
-        //}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<InventoryItem>>> GetItems()
+        {
+            return NoContent();
+        }
 
         // GET: api/Inventory/5
         [HttpGet("{id}")]

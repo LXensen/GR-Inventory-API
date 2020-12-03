@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GuildedRose.API.Inventory.Services
 {
-    public class InventoryService : IInventoryService
+    public class InventoryRepository : IInventoryRepository
     {
         private readonly InventoryItemContext _context;
 
-        public InventoryService(InventoryItemContext context)
+        public InventoryRepository(InventoryItemContext context)
         {
             _context = context;
 
@@ -31,7 +31,9 @@ namespace GuildedRose.API.Inventory.Services
 
         public async Task<ActionResult<IEnumerable<InventoryItem>>> GetInventoryItems(string Items, string id)
         {
-            return await _context.Items.Where(i => id.Contains(i.Id)).ToListAsync();
+            var inventoryItems = await _context.Items.Where(i => id.Contains(i.Id)).ToListAsync();
+
+            return inventoryItems;
         }
 
         public async Task<ActionResult<IEnumerable<InventoryItem>>> GetItems()

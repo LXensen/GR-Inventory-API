@@ -5,8 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using GuildedRose.API.Inventory.Models;
 using Microsoft.EntityFrameworkCore;
+using GuildedRose.API.Inventory.Models;
+using GuildedRose.API.Inventory.Interfaces;
+using GuildedRose.API.Inventory.Services;
 
 namespace GuildedRose.API.Inventory
 {
@@ -22,12 +24,14 @@ namespace GuildedRose.API.Inventory
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<InventoryItemContext>(opt => opt.UseInMemoryDatabase("InventoryItems"));
             services.AddControllers();
+            services.AddScoped<IInventoryRepository, InventoryRepository>();
+            services.AddDbContext<InventoryItemContext>(opt => opt.UseInMemoryDatabase("InventoryItems"));            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GuildedRose.API.Inventory", Version = "v1" });
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

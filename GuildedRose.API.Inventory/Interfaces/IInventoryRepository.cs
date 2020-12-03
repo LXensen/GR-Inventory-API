@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GuildedRose.API.Inventory.Interfaces
 {
-    public interface IInventoryService
+    public interface IInventoryRepository
     {
         Task<ActionResult<IEnumerable<InventoryItem>>> GetItems();
 
